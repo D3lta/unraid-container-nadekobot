@@ -1,0 +1,15 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+# s6-echo "Starting process"
+cd /app
+exec /app/NadekoBot
+# exec /etc/s6-overlay/s6-rc.d/svc-nadekobot/start.sh
+
+# #!/usr/bin/execlineb -P
+# 
+# with-contenv
+# 
+# cd /app
+# /app/NadekoBot
+

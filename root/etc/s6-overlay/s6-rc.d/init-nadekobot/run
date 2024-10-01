@@ -1,0 +1,30 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+if [[ ! -f /config/creds.yml ]]; then
+
+    if [[ ! -d /config ]]; then
+        echo "/config was not found, creating"
+        mkdir /config
+    fi
+    
+    cp /app/creds_example.yml /config
+    
+    echo "version: 9
+token: "$DISCORD_TOKEN"
+ownerIds: [$DISCORD_OWNERIDS]
+totalShards: 1
+usePrivilegedIntents: true
+botCache: Memory
+db:
+  type: sqlite
+  connectionString: Data Source=/data/NadekoBot.db
+restartCommand:
+  cmd:
+  rgs:
+" > /config/creds.yml
+
+fi
+
+# #!/command/execlineb -P
+# bash /etc/s6-overlay/s6-rc.d/init-nadekobot/execute.sh
