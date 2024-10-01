@@ -25,6 +25,3 @@ restartCommand:
 " > /config/creds.yml
 
 fi
-
-# #!/command/execlineb -P
-# bash /etc/s6-overlay/s6-rc.d/init-nadekobot/execute.sh
