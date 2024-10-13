@@ -20,8 +20,8 @@ db:
   type: sqlite
   connectionString: Data Source=/data/NadekoBot.db
 restartCommand:
-  cmd:
-  rgs:
+  cmd: exit
+  args: 0
 " > /config/creds.yml
 
 fi
