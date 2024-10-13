@@ -2,4 +2,4 @@
 # shellcheck shell=bash
 
 cd /app
-exec /app/NadekoBot
+exec s6-setuidgid app /app/NadekoBot

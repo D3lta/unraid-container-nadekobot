@@ -3,8 +3,6 @@ FROM mcr.microsoft.com/dotnet/runtime-deps:9.0-noble
 ARG NADEKOBOT_VERSION
 ARG ARCH=x64
 ARG BUILD_DATE=$(date)
-ENV UID=99
-ENV GID=100
 
 LABEL build_version="Build by D3lta | NadekoBot version:- ${NADEKOBOT_VERSION} | Build-date:- ${BUILD_DATE}"
 LABEL maintainer="d3lta"
