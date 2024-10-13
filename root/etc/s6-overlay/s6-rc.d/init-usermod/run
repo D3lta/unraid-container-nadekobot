@@ -4,7 +4,7 @@
 mv /app/data /tmp/data
 
 if [[ ! -f "/data/yaml/bot.yml" ]]; then
-    echo "[NOTICE] Bot data not found in config folder, creating this folder and copying data"
+    echo "[NOTICE] Bot data not found in /data/yaml folder, creating this folder and copying data"
     mv /tmp/data/ /data/yaml
 fi
 
