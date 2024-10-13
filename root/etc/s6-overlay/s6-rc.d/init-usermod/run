@@ -1,9 +1,17 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
+mv /app/data /tmp/data
+
+if [[ ! -f "/data/yaml/bot.yml" ]]; then
+    echo "[NOTICE] Bot data not found in config folder, creating this folder and copying data"
+    mv /tmp/data/ /data/yaml
+fi
+
+ln -s /data/yaml /app/data
+
 chown -R app:app \
     /app \
     /config \
-    /data
-# #!/command/execlineb -P
-# bash /etc/s6-overlay/s6-rc.d/init-usermod/fixperms.sh
+    /data \
+    /app/data

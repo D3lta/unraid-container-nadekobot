@@ -1,6 +1,0 @@
-#!/bin/bash
-
-if [[ ! -f "/config/creds.yml" ]]; then
-    echo "[WARNING] /config/creds.yml not found! unable to start"
-    exit 1
-fi
