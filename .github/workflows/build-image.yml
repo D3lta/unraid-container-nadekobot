@@ -37,6 +37,8 @@ jobs:
         with:
           context: ./
           platforms: linux/amd64
+          build-args: |
+            NADEKOBOT_VERSION="5.1.14"
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           push: true
           labels: |
