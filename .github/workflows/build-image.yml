@@ -13,7 +13,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: d3lta/unraid-container-nadekobot
-  NADEKOBOTVERSION: ${{  github.ref_name }}
+  NADEKOBOTVERSION: ${{ github.ref_name }}
   
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push docker image using workflow_dispatch with nadekobot version ${{ env.NADEKOBOTVERSION }}
+      - name: Build and Push docker image using workflow_dispatch with nadekobot version ${{ inputs.nadekobotVersion }}
         if: ${{ github.event_name == 'workflow_dispatch' }}
         id: build-and-push-specific-ver-only
         uses: docker/build-push-action@v6
@@ -44,12 +44,12 @@ jobs:
           context: ./
           platforms: linux/amd64
           build-args: |
-            NADEKOBOT_VERSION=${{ env.NADEKOBOTVERSION }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.NADEKOBOTVERSION }}
+            NADEKOBOT_VERSION=${{ github.event.inputs.nadekobotVersion }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.nadekobotVersion }}
           push: true
           labels: |
             org.opencontainers.image.source=${{github.server_url}}/${{github.repository}}
-            org.opencontainers.image.description=Discord Bot https://gitlab.com/Kwoth/nadekobot for unraid running nadekobot version: ${{ env.NADEKOBOTVERSION }}
+            org.opencontainers.image.description=Discord Bot https://gitlab.com/Kwoth/nadekobot for unraid running nadekobot version: ${{ github.event.inputs.nadekobotVersion }}
             org.opencontainers.image.licenses=MIT
 
       - name: Build and push Docker image with nadekobot version ${{ env.NADEKOBOTVERSION }}
