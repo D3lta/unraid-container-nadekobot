@@ -18,7 +18,7 @@ usePrivilegedIntents: true
 botCache: Memory
 db:
   type: sqlite
-  connectionString: Data Source=/data/db/NadekoBot.db
+  connectionString: Data Source=/data/NadekoBot.db
 restartCommand:
   cmd: exit
   args: 0
