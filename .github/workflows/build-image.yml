@@ -13,6 +13,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: d3lta/unraid-container-nadekobot
+  NADEKOBOTVERSION: ${GITHUB_REF##*/}
+  
 
 jobs:
   build:
@@ -34,7 +36,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: test
+      - name: Build and Push docker image using workflow_dispatch with nadekobot version ${{ env.NADEKOBOTVERSION }}
         if: ${{ github.event_name == 'workflow_dispatch' }}
         id: build-and-push-specific-ver-only
         uses: docker/build-push-action@v6
@@ -42,15 +44,15 @@ jobs:
           context: ./
           platforms: linux/amd64
           build-args: |
-            NADEKOBOT_VERSION=${{GITHUB_REF##*/}}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{GITHUB_REF##*/}}
+            NADEKOBOT_VERSION=${{ env.NADEKOBOTVERSION }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.NADEKOBOTVERSION }}
           push: true
           labels: |
             org.opencontainers.image.source=${{github.server_url}}/${{github.repository}}
-            org.opencontainers.image.description=Discord Bot https://gitlab.com/Kwoth/nadekobot for unraid running nadekobot version: ${GITHUB_REF##*/}
+            org.opencontainers.image.description=Discord Bot https://gitlab.com/Kwoth/nadekobot for unraid running nadekobot version: ${{ env.NADEKOBOTVERSION }}
             org.opencontainers.image.licenses=MIT
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image with nadekobot version ${{ env.NADEKOBOTVERSION }}
         if: github.event_name != 'workflow_dispatch'
         id: build-and-push
         uses: docker/build-push-action@v6
@@ -58,10 +60,10 @@ jobs:
           context: ./
           platforms: linux/amd64
           build-args: |
-            NADEKOBOT_VERSION=${GITHUB_REF##*/}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{GITHUB_REF##*/}}
+            NADEKOBOT_VERSION=${{ env.NADEKOBOTVERSION }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.NADEKOBOTVERSION }}
           push: true
           labels: |
             org.opencontainers.image.source=${{github.server_url}}/${{github.repository}}
-            org.opencontainers.image.description=Discord Bot https://gitlab.com/Kwoth/nadekobot for unraid running nadekobot version: ${GITHUB_REF##*/}
+            org.opencontainers.image.description=Discord Bot https://gitlab.com/Kwoth/nadekobot for unraid running nadekobot version: ${{ env.NADEKOBOTVERSION }}
             org.opencontainers.image.licenses=MIT
