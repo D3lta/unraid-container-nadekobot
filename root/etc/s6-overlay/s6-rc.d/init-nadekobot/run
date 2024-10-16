@@ -11,14 +11,14 @@ if [[ ! -f /config/creds.yml ]]; then
     cp /app/creds_example.yml /config
     
     echo "version: 9
-token: "$DISCORD_TOKEN"
+token: \""$DISCORD_TOKEN"\"
 ownerIds: [$DISCORD_OWNERIDS]
 totalShards: 1
 usePrivilegedIntents: true
 botCache: Memory
 db:
   type: sqlite
-  connectionString: Data Source=/data/NadekoBot.db
+  connectionString: Data Source=/data/db/NadekoBot.db
 restartCommand:
   cmd: exit
   args: 0

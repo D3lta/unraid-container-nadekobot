@@ -3,12 +3,12 @@
 
 mv /app/data /tmp/data
 
-if [[ ! -f "/data/yaml/bot.yml" ]]; then
+if [[ ! -f "/data/bot/bot.yml" ]]; then
     echo "[NOTICE] Bot data not found in /data/yaml folder, creating this folder and copying data"
-    mv /tmp/data/ /data/yaml
+    mv /tmp/data/ /data/bot
 fi
 
-ln -s /data/yaml /app/data
+ln -s /data/bot /app/data
 
 chown -R app:app \
     /app \
