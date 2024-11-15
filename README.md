@@ -3,7 +3,7 @@
 Application: Nadekobot - https://gitlab.com/Kwoth/nadekobot<br>
 Documentation: https://nadeko.bot/commands | https://nadekobot.readthedocs.io/en/latest
 
-Nadekobot Version: `5.1.14`
+Nadekobot Version: `5.1.20`
 
 Registry: https://ghcr.io/d3lta/unraid-container-nadekobot <br>
 GitHub: https://github.com/D3lta/unraid-container-nadekobot
