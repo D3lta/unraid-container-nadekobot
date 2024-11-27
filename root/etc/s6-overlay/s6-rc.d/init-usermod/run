@@ -10,6 +10,9 @@ fi
 
 ln -s /data/bot /app/data
 
+rm -rf /data/bot/strings
+cp -R /tmp/data/strings/ /data/bot/strings
+
 chown -R app:app \
     /app \
     /config \
