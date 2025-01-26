@@ -13,10 +13,6 @@ jobs:
     name: Release pushed tag
     runs-on: ubuntu-22.04
     steps:
-      - name: "Set current release version"
-        id: current
-        run: echo "version=$(git tag | sort --version-sort | tail -n1)" >> "$GITHUB_OUTPUT"
-
       - name: "Set latest release version"
         id: latest
         run: echo "version=$(curl https://gitlab.com/Kwoth/nadekobot/-/releases.json | jq ".[0].tag")" >> "$GITHUB_OUTPUT"
@@ -28,7 +24,11 @@ jobs:
           INPUT_LATEST: ${{ steps.latest.outputs.version }}
         with:
             script: |
-                  const current = core.getInput('current');
+                  const current = octokit.rest.repos.getLatestRelease({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo
+                  }).tag_name;
+
                   const latest = core.getInput('latest');
 
                   console.log(current, latest);
