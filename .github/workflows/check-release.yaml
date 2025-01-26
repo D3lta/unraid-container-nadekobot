@@ -50,7 +50,7 @@ jobs:
                       octokit.rest.reactions.createForRelease({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        release_id: `${latest}`
+                        release_id: `${latest}`,
                         content: `https://gitlab.com/Kwoth/nadekobot/-/tags/${latest}`
                       });
                     } catch(e) { console.log(`Failed to create release`) }
