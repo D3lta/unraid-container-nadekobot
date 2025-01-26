@@ -24,7 +24,7 @@ jobs:
           INPUT_LATEST: ${{ steps.latest.outputs.version }}
         with:
             script: |
-                  const getLatestRelease = github.rest.repos.getLatestRelease({
+                  const getLatestRelease = await github.rest.repos.getLatestRelease({
                     owner: context.repo.owner,
                     repo: context.repo.repo
                   });
