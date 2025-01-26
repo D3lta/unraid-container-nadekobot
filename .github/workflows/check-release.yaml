@@ -1,0 +1,58 @@
+name: Check and create releases
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * *'
+
+permissions:
+  contents: write
+  
+jobs:
+  check:
+    name: Release pushed tag
+    runs-on: ubuntu-22.04
+    steps:
+      - name: "Set current release version"
+        id: current
+        run: echo "version=$(git tag | sort --version-sort | tail -n1)" >> "$GITHUB_OUTPUT"
+
+      - name: "Set latest release version"
+        id: latest
+        run: echo "version=$(curl https://gitlab.com/Kwoth/nadekobot/-/releases.json | jq ".[0].tag")" >> "$GITHUB_OUTPUT"
+        
+      - name: "Check if newer version is available"
+        uses: actions/github-script@v7
+        env:
+          INPUT_CURRENT: ${{ steps.current.outputs.version }}
+          INPUT_LATEST: ${{ steps.latest.outputs.version }}
+        with:
+            script: |
+                  const current = core.getInput('current');
+                  const latest = core.getInput('latest');
+
+                  console.log(current, latest);
+
+                  if(current != null || latest != null) {
+                    console.log(`Input values both null`);
+                    return;
+                  }
+                  
+                  // 0 equal, 1 a>b, -1 b>a
+                  const newerAvailable = (current.localeCompare(latest, undefined, { numeric: true, sensitivity: 'base'}) == -1);
+                  
+                  if(!newerAvailable) {
+                    console.log(`No newer version available`);
+                    return;
+                  };
+                  
+                  try {
+                      octokit.rest.reactions.createForRelease({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        release_id: `${latest}`
+                        content: `https://gitlab.com/Kwoth/nadekobot/-/tags/${latest}`
+                      });
+                    } catch(e) { console.log(`Failed to create release`) }
+                  
+              
