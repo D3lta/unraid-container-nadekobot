@@ -29,9 +29,8 @@ jobs:
                     repo: context.repo.repo
                   });
                   
-                  const current = getLatestRelease.data.tag_name;
+                  const current = getLatestRelease.data.tag_name.toString();
                   const latest = core.getInput('latest');
-
 
 
                   if(current != null || latest != null) {
