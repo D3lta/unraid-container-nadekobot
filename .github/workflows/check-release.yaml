@@ -24,7 +24,7 @@ jobs:
           INPUT_LATEST: ${{ steps.latest.outputs.version }}
         with:
             script: |
-                  const current = octokit.rest.repos.getLatestRelease({
+                  const current = github.rest.repos.getLatestRelease({
                     owner: context.repo.owner,
                     repo: context.repo.repo
                   }).tag_name;
@@ -47,7 +47,7 @@ jobs:
                   };
                   
                   try {
-                      octokit.rest.reactions.createForRelease({
+                      github.rest.reactions.createForRelease({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         release_id: `${latest}`,
