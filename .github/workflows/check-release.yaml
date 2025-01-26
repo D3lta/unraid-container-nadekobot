@@ -33,8 +33,10 @@ jobs:
                   const latest = core.getInput('latest');
 
 
-                  if(current != null || latest != null) {
-                    console.log(`Input values null`, current, latest);
+                  if(!current || !latest) {
+                    console.log(`Input values: `, current, latest);
+                    core.setFailed(1);
+                    process.exit();
                     return;
                   }
                   
