@@ -29,21 +29,19 @@ jobs:
                     repo: context.repo.repo
                   });
                   
-                  console.log(getLatestRelease);
-                  
-                  const current = getLatestRelease.tag_name;
-
+                  const current = getLatestRelease.data.tag_name;
                   const latest = core.getInput('latest');
 
-                  console.log(current, latest);
+
 
                   if(current != null || latest != null) {
-                    console.log(`Input values both null`);
+                    console.log(`Input values null`, current, latest);
                     return;
                   }
                   
                   // 0 equal, 1 a>b, -1 b>a
                   const newerAvailable = (current.localeCompare(latest, undefined, { numeric: true, sensitivity: 'base'}) == -1);
+                  console.log(newerAvailable);
                   
                   if(!newerAvailable) {
                     console.log(`No newer version available`);
