@@ -24,10 +24,14 @@ jobs:
           INPUT_LATEST: ${{ steps.latest.outputs.version }}
         with:
             script: |
-                  const current = github.rest.repos.getLatestRelease({
+                  const getLatestRelease = github.rest.repos.getLatestRelease({
                     owner: context.repo.owner,
                     repo: context.repo.repo
-                  }).tag_name;
+                  });
+                  
+                  console.log(getLatestRelease);
+                  
+                  const current = getLatestRelease.tag_name;
 
                   const latest = core.getInput('latest');
 
