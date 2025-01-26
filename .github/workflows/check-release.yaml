@@ -29,7 +29,7 @@ jobs:
                     repo: context.repo.repo
                   });
                   
-                  const current = new String(getLatestRelease.data.tag_name);
+                  const current = `"${getLatestRelease.data.tag_name}"`;
                   const latest = core.getInput('latest');
 
 
