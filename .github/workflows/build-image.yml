@@ -42,17 +42,17 @@ jobs:
                     process.exit();
                   }
                   
-                  const newerAvailable = () => {
+                  const newerAvailable = (() => {
                     // 0 equal, 1 a>b, -1 b>a
                     const update = (current.localeCompare(latest, undefined, { numeric: true, sensitivity: 'base' }) == -1)
                     core.notice(update);
                     return update
-                  };
+                  })();
                   
                   if(!newerAvailable) {
                     core.notice(`No newer version available`);
                     core.setOutput('skip', 'true');
-                    
+
                     core.setFail(0);
                     process.exit();
                   }
