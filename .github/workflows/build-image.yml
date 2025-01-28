@@ -78,12 +78,12 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+        NADEKOBOTVERSION: ${{ needs.check_version.outputs.nadekobot_version }}
 
     steps:
-      - env:
-          NADEKOBOTVERSION: ${{ needs.check_version.outputs.nadekobot_version }}
       - uses: actions/checkout@v4
-      
+
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v3
 
