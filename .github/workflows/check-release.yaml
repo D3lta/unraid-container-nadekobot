@@ -22,6 +22,7 @@ jobs:
         env:
           INPUT_LATEST: ${{ steps.latest.outputs.version }}
         with:
+            github-token: ${{ secrets.PAT_TOKEN }}
             script: |
                   const getLatestRelease = await github.rest.repos.getLatestRelease({
                     owner: context.repo.owner,
