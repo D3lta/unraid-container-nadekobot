@@ -29,7 +29,7 @@ jobs:
                     repo: context.repo.repo
                   });
                   
-                  const current = `"${getLatestRelease.data.tag_name}"`;
+                  const current = getLatestRelease.data.tag_name;
                   const latest = core.getInput('latest');
 
 
@@ -37,12 +37,14 @@ jobs:
                     console.log(`Input values: `, current, latest);
                     core.setFailed(1);
                     process.exit();
-                    return;
                   }
                   
-                  // 0 equal, 1 a>b, -1 b>a
-                  const newerAvailable = (current.localeCompare(latest, undefined, { numeric: true, sensitivity: 'base'}) == -1);
-                  console.log(newerAvailable);
+                  const newerAvailable = () => {
+                    // 0 equal, 1 a>b, -1 b>a
+                    const update = (current.localeCompare(latest, undefined, { numeric: true, sensitivity: 'base' }) == -1)
+                    console.log(update);
+                    return update
+                  };
                   
                   if(!newerAvailable) {
                     console.log(`No newer version available`);
