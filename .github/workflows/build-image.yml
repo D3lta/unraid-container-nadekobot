@@ -53,7 +53,7 @@ jobs:
                     core.notice(`No newer version available`);
                     core.setOutput('skip', 'true');
 
-                    core.setFail(0);
+                    core.setFailed(0);
                     process.exit();
                   }
                   
