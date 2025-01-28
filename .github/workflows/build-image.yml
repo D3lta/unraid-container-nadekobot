@@ -12,7 +12,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: d3lta/unraid-container-nadekobot
-  NADEKOBOTVERSION: ${{ github.ref_name }}
 
 jobs:
   check_version:
