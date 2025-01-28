@@ -71,6 +71,7 @@ jobs:
                     }
 
   build:
+    needs: check_version
     runs-on: ubuntu-22.04
     permissions:
       contents: read
