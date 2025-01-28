@@ -1,9 +1,9 @@
 name: Build nadekobot container
 
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_run:
+    workflows: [Check and create releases]
+    types: [completed]
   workflow_dispatch:
     inputs:
       nadekobotVersion:
