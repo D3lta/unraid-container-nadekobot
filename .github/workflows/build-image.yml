@@ -38,22 +38,19 @@ jobs:
 
                   if(!current || !latest) {
                     core.warning(`Invalid remote/local version fetched`);
-                    core.setFailed(1);
+                    core.setFailed(`Invalid versions loaded`);
                     process.exit();
                   }
                   
                   const newerAvailable = (() => {
                     // 0 equal, 1 a>b, -1 b>a
                     const update = (current.localeCompare(latest, undefined, { numeric: true, sensitivity: 'base' }) == -1)
-                    core.notice(update);
                     return update
                   })();
                   
                   if(!newerAvailable) {
-                    core.notice(`No newer version available`);
+                    core.notice(`No newer version available, setting skip to true`);
                     core.setOutput('skip', 'true');
-
-                    core.setFailed(0);
                     process.exit();
                   }
                   
