@@ -30,8 +30,7 @@ jobs:
                   
                   const current = getLatestRelease.data.tag_name;
                   const latest = core.getInput('latest');
-                  console.log("current", current, "latest", latest);
-                  console.log(typeof(current), typeof(latest));
+                  console.log("The current version is ", current, " and latest available is ", latest);
 
                   if(!current || !latest) {
                     console.log(`Input values: `, current, latest);
@@ -48,7 +47,8 @@ jobs:
                   
                   if(!newerAvailable) {
                     console.log(`No newer version available`);
-                    return;
+                    core.setFailed(1);
+                    process.exit();
                   };
                   
                   try {
@@ -59,6 +59,11 @@ jobs:
                         name: `v${latest}`,
                         body: `https://gitlab.com/Kwoth/nadekobot/-/releases/${latest}`
                       });
-                    } catch(e) { console.log(`Failed to create release`) }
+                      console.log(`Created new release: v${latest}`);
+                    } catch(e) { 
+                      console.log(`Failed to create release`);
+                      core.setFailed(1);
+                      process.exit();
+                    }
                   
               
