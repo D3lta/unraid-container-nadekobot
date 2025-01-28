@@ -3,11 +3,6 @@ on:
   schedule:
     - cron: '0 10 * * *'
   workflow_dispatch:
-    inputs:
-      nadekobotVersion:
-        description: 'version of nadekobot format: 5.0.0'
-        required: true
-        type: string
   
 env:
   REGISTRY: ghcr.io
