@@ -21,10 +21,12 @@ jobs:
                   const remoteRepo = await fetch(remoteRepoURL);
                   const remoteRepoData = remoteRepo.json();
 
-                  const current = await github.rest.repos.getLatestRelease({
+                  const localRepo = await github.rest.repos.getLatestRelease({
                     owner: context.repo.owner,
                     repo: context.repo.repo
-                  }).data.tag_name;
+                  });
+
+                  const current = localRepo.data.tag_name;
 
                   const latest = remoteRepoData[0].tag;
 
