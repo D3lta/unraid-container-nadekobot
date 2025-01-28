@@ -11,6 +11,8 @@ env:
 jobs:
   check_version:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
       - name: "Check if newer version is available"
         uses: actions/github-script@v7
