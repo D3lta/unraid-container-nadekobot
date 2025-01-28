@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     outputs:
       nadekobot_version: ${{ steps.version_check.outputs.NADEKOBOTVERSION }}
+      skip: ${{ steps.version_check.outputs.skip }}
     permissions:
       contents: write
     steps:
@@ -50,8 +51,7 @@ jobs:
                   
                   if(!newerAvailable) {
                     console.log(`No newer version available`);
-                    core.setFailed(1);
-                    process.exit();
+                    core.setOutput('skip', 'true');
                   };
                   
                   try {
@@ -65,6 +65,7 @@ jobs:
 
                       console.log(`Created new release: v${latest}`);
                       core.setOutput('NADEKOBOTVERSION', latest);
+                      core.setOutput('skip', 'false');
 
                     } catch(e) { 
                       console.log(`Failed to create release`);
@@ -74,6 +75,7 @@ jobs:
 
   build:
     needs: check_version
+    if: ${{ needs.check_version.outputs.skip != 'true' }}
     runs-on: ubuntu-22.04
     permissions:
       contents: read
