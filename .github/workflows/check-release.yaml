@@ -20,7 +20,6 @@ jobs:
       - name: "Check if newer version is available"
         uses: actions/github-script@v7
         env:
-          INPUT_CURRENT: ${{ steps.current.outputs.version }}
           INPUT_LATEST: ${{ steps.latest.outputs.version }}
         with:
             script: |
@@ -31,7 +30,8 @@ jobs:
                   
                   const current = getLatestRelease.data.tag_name;
                   const latest = core.getInput('latest');
-
+                  console.log("current", current, "latest", latest);
+                  console.log(typeof(current), typeof(latest));
 
                   if(!current || !latest) {
                     console.log(`Input values: `, current, latest);
