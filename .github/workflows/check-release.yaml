@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: "Set latest release version"
         id: latest
-        run: echo "version=$(curl https://gitlab.com/Kwoth/nadekobot/-/releases.json | jq ".[0].tag")" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(curl https://gitlab.com/Kwoth/nadekobot/-/releases.json | jq -r ".[0].tag")" >> "$GITHUB_OUTPUT"
         
       - name: "Check if newer version is available"
         uses: actions/github-script@v7
