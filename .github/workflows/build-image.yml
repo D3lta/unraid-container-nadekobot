@@ -19,14 +19,14 @@ jobs:
                   const remoteRepoURL = `https://gitlab.com/Kwoth/nadekobot/-/releases.json`;
                   const remoteRepo = await fetch(remoteRepoURL);
                   const remoteRepoData = await remoteRepo.json();
-                  const current = localRepo.data.tag_name;
+                  const latest = remoteRepoData[0]?.tag;
                   
                   const localRepo = await github.rest.repos.getLatestRelease({
                     owner: context.repo.owner,
                     repo: context.repo.repo
                   });
-
-                  const latest = remoteRepoData[0].tag;
+                  
+                  const current = localRepo?.data?.tag_name;
 
                   console.log("The current version is ", current, " and latest available is ", latest);
 
