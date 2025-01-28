@@ -52,11 +52,11 @@ jobs:
                   };
                   
                   try {
-                      github.rest.reactions.createForRelease({
+                      github.rest.repos.createRelease({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        release_id: `${latest}`,
-                        content: `https://gitlab.com/Kwoth/nadekobot/-/tags/${latest}`
+                        tag_name: `${latest}`,
+                        body: `https://gitlab.com/Kwoth/nadekobot/-/tags/${latest}`
                       });
                     } catch(e) { console.log(`Failed to create release`) }
                   
