@@ -1,6 +1,7 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
+
 mv /app/data /tmp/data
 
 if [[ ! -f "/data/bot/bot.yml" ]]; then
@@ -10,10 +11,10 @@ fi
 
 ln -s /data/bot /app/data
 
-rm -rf /data/bot/strings
-cp -R /tmp/data/strings/ /data/bot/strings
+# rm -rf /data/bot/strings
+# cp -R /tmp/data/strings/ /data/bot/strings
 
-chown -R app:app \
+chown -R appuser:appuser \
     /app \
     /config \
     /data \
